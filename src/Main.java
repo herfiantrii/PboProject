@@ -18,8 +18,6 @@ public class Main {
 
         // Register dan login user
         User user1 = authManager.register("user1", "password123");
-        User user2 = authManager.register("user2", "qwerty");
-
         authManager.login("user1", "password123");
 
         // Mengisi biodata
@@ -27,7 +25,7 @@ public class Main {
         authManager.inputBiodata(user1, biodataUser1);
 
         // Membuat objek PenggunaanAir
-        PenggunaanAir penggunaanMandi = new PenggunaanAir("Mandi", 10);
+        PenggunaanAir penggunaanMandi = new PenggunaanAir("Mandi", 30);
 
         // Menambahkan penggunaan air ke riwayat user
         user1.inputPenggunaanAir(penggunaanMandi.getAktivitas(), penggunaanMandi.getJumlah());
@@ -35,21 +33,17 @@ public class Main {
         // Menampilkan detail penggunaan air
         penggunaanMandi.tampilkanDetailPenggunaan();
 
-        // Membuat objek Poin
-        Poin poinUser1 = new Poin(100);
+        // Membuat objek NotifikasiPengguna
+        NotifikasiPengguna notifikasiUser1 = new NotifikasiPengguna("Hati-hati, Anda sudah melebihi batas penggunaan air harian.");
 
-        // Menambahkan dan mengurangi poin
-        poinUser1.tambahPoin(50);
-        poinUser1.kurangiPoin(30);
-
-        // Menampilkan jumlah poin
-        System.out.println("Jumlah Poin User1: " + poinUser1.getJumlahPoin());
+        // Mengirim notifikasi jika melebihi batas
+        notifikasiUser1.kirimNotifikasi(user1, 50); // Batas penggunaan air harian diatur ke 50 liter
 
         // Membuat objek StatistikPenggunaan
         StatistikPenggunaan statistikUser1 = new StatistikPenggunaan();
 
         // Mencatat penggunaan air
-        statistikUser1.catatPenggunaan("Mandi", 10);
+        statistikUser1.catatPenggunaan("Mandi", 30);
         statistikUser1.catatPenggunaan("Cuci Tangan", 5);
 
         // Menampilkan statistik penggunaan air
@@ -88,16 +82,15 @@ public class Main {
 
         // Bergabung ke komunitas
         komunitas1.bergabungKomunitas(user1);
-        komunitas1.bergabungKomunitas(user2);
 
         // Menampilkan anggota komunitas
         komunitas1.tampilkanAnggota();
 
         // Membuat objek NotifikasiPengguna
-        NotifikasiPengguna notifikasiUser1 = new NotifikasiPengguna("Hati-hati, Anda sudah melebihi batas penggunaan air harian.");
+        NotifikasiPengguna notifikasiUser2 = new NotifikasiPengguna("Hati-hati, Anda sudah melebihi batas penggunaan air harian.");
 
-        // Mengirim notifikasi
-        notifikasiUser1.kirimNotifikasi(user1);
+        // Mengirim notifikasi jika melebihi batas
+        notifikasiUser2.kirimNotifikasi(user1, 50); // Batas penggunaan air harian diatur ke 50 liter
 
         // Logout user
         authManager.logout(user1);
@@ -107,13 +100,13 @@ public class Main {
         System.out.println("Informasi Biodata User1: " + biodataUser1);
         System.out.println("Informasi User1: " + user1);
         System.out.println("Informasi Penggunaan Air: " + penggunaanMandi);
-        System.out.println("Informasi Poin User1: " + poinUser1);
+        System.out.println("Informasi Notifikasi User1: " + notifikasiUser1);
         System.out.println("Informasi Statistik Penggunaan User1: " + statistikUser1);
         System.out.println("Informasi RewardManager: " + rewardManager);
         System.out.println("Informasi Kuis Artikel1: " + kuisArtikel1);
         System.out.println("Informasi Artikel1: " + artikel1);
         System.out.println("Informasi Komunitas1: " + komunitas1);
-        System.out.println("Informasi Notifikasi User1: " + notifikasiUser1);
+        System.out.println("Informasi Notifikasi User2: " + notifikasiUser2);
     }
 
     private static Date parseDate(String dateString) {
@@ -125,4 +118,3 @@ public class Main {
         }
     }
 }
-

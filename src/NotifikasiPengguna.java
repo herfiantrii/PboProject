@@ -18,8 +18,14 @@ public class NotifikasiPengguna {
         return pesan;
     }
 
-    public void kirimNotifikasi(User user) {
-        System.out.println("Notifikasi untuk " + user.getUsername() + ": " + pesan);
+    public void kirimNotifikasi(User user, int batasPenggunaanAir) {
+        int totalPenggunaan = user.getTotalPenggunaanHariIni();
+
+        if (totalPenggunaan > batasPenggunaanAir) {
+            System.out.println("Notifikasi untuk " + user.getUsername() + ": " + pesan);
+        } else {
+            System.out.println("Penggunaan air masih dalam batas normal.");
+        }
     }
 
     @Override

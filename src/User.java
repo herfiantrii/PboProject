@@ -47,9 +47,46 @@ public class User {
         riwayatPenggunaan.add(penggunaanAir);
         System.out.println("Penggunaan air berhasil dicatat.");
     }
+    
+    public int getTotalPenggunaanHariIni() {
+        int totalPenggunaan = 0;
+
+        // Menghitung total penggunaan air dari riwayat penggunaan hari ini
+        for (PenggunaanAir penggunaanAir : riwayatPenggunaan) {
+            totalPenggunaan += penggunaanAir.getJumlah();
+        }
+
+        return totalPenggunaan;
+    }
 
     public void kalkulasiPoin() {
-        // Implementasi kalkulasiPoin
+        int totalPenggunaan = 0;
+
+        // Menghitung total penggunaan air dari riwayat penggunaan
+        for (PenggunaanAir penggunaanAir : riwayatPenggunaan) {
+            totalPenggunaan += penggunaanAir.getJumlah();
+        }
+
+        // Mendapatkan batas rata-rata penggunaan air harian
+        int batasRataRata = 50; // Misalnya, batas rata-rata adalah 50 liter per hari
+
+        // Menghitung selisih penggunaan air dengan batas rata-rata
+        int selisih = totalPenggunaan - batasRataRata;
+
+        // Menentukan poin berdasarkan selisih
+        int poinBaru;
+        if (selisih <= 0) {
+            // Jika tidak melebihi batas rata-rata, tambahkan poin
+            poinBaru = poin.getJumlahPoin() + 10;
+            System.out.println("Selamat! Anda mendapatkan tambahan 10 poin.");
+        } else {
+            // Jika melebihi batas rata-rata, kurangi poin
+            poinBaru = poin.getJumlahPoin() - (selisih * 2);
+            System.out.println("Maaf, Anda melebihi batas rata-rata. Poin dikurangi sebanyak " + (selisih * 2));
+        }
+
+        // Mengupdate jumlah poin
+        poin.tambahPoin(poinBaru - poin.getJumlahPoin());
     }
 
     public void tukarPoin(Reward reward) {
